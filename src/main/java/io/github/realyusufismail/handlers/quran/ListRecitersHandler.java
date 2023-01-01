@@ -38,13 +38,11 @@ public class ListRecitersHandler implements RequestHandler {
     var recitersNames = reciters.keySet();
     var recitersNumbers = reciters.values();
     StringBuilder recitersList = new StringBuilder();
-    for (var i = 0; i < recitersNames.size(); i++) {
-      recitersList
-          .append(recitersNames.toArray()[i])
-          .append(" with number ")
-          .append(recitersNumbers.toArray()[i])
-          .append(", ");
+    // needs to be in numerical order
+    for (int i = 1; i <= recitersNames.size(); i++) {
+      recitersList.append(i).append(" ").append(recitersNames.toArray()[i - 1]).append(", ");
     }
+
     return handlerInput
         .getResponseBuilder()
         .withSpeech("The list of reciters is " + recitersList)

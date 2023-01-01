@@ -5,7 +5,7 @@ Resources:
       Timeout: 300
       MemorySize: 128
       Handler: io.github.realyusufismail.QuranSkillHandler
-      CodeUri: /Users/YI/Documents/GitHub/Alexa-Weather-Skill
-      Runtime: java8.al2
+      CodeUri: /Users/YI/Documents/GitHub/QuranSkill/target/QuranSkill-1.0-SNAPSHOT.jar
+      Runtime: java11
       Architectures:
         - x86_64

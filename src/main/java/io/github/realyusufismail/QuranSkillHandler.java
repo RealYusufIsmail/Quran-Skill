@@ -20,18 +20,18 @@ package io.github.realyusufismail;
 
 import com.amazon.ask.SkillStreamHandler;
 import com.amazon.ask.Skills;
-import io.github.realyusufismail.handlers.WeatherHandler;
 import io.github.realyusufismail.handlers.basic.LaunchRequestHandler;
 import io.github.realyusufismail.handlers.basic.WelcomeRequestHandler;
+import io.github.realyusufismail.handlers.quran.QuranHandler;
 
 @SuppressWarnings("unused")
-public class WeatherSkillHandler extends SkillStreamHandler {
+public class QuranSkillHandler extends SkillStreamHandler {
 
-  public WeatherSkillHandler() {
+  public QuranSkillHandler() {
     super(
         Skills.standard()
             .addRequestHandlers(
-                new WelcomeRequestHandler(), new LaunchRequestHandler(), new WeatherHandler())
+                new WelcomeRequestHandler(), new LaunchRequestHandler(), new QuranHandler())
             .build());
   }
 }

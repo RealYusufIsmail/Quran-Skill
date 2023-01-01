@@ -4,7 +4,7 @@ Resources:
     Properties:
       Timeout: 300
       MemorySize: 128
-      Handler: io.github.realyusufismail.WeatherSkillHandler
+      Handler: io.github.realyusufismail.QuranSkillHandler
       CodeUri: /Users/YI/Documents/GitHub/Alexa-Weather-Skill
       Runtime: java8.al2
       Architectures:

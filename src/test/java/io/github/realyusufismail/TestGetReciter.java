@@ -18,11 +18,11 @@
  */ 
 package io.github.realyusufismail;
 
-import io.github.realyusufismail.utils.WeatherRetriever;
+import org.junit.jupiter.api.Test;
 
-public class TestGetWeather {
-  public static void main(String[] args) {
-    var weather = WeatherRetriever.getWeather("London");
-    System.out.println(weather);
+public class TestGetReciter {
+  @Test
+  public void testGetReciter() {
+    // TODO: Implement test
   }
 }

@@ -18,10 +18,11 @@
  */ 
 package io.github.realyusufismail.utils;
 
+import io.github.realyusufismail.reciters.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Surah {
+public class QuranUtils {
   public static Map<String, Integer> surahNamesAndNumbers =
       new HashMap<>() {
         {
@@ -141,4 +142,50 @@ public class Surah {
           put("An-Nas", 114);
         }
       };
+
+  public static Reciter getReciter(String reciterName) {
+    switch (reciterName) {
+      case "AbdulBaset AbdulSamad":
+        return new AbdulBaset();
+      case "Mishari Rashid al-`Afasy":
+        return new Afasy();
+      case "Mahmoud Khalil Al-Husary":
+        return new Husary();
+      case "Mohamed Siddiq al-Minshawi":
+        return new Minshawi();
+      case "Hani ar-Rifai":
+        return new Rifai();
+      case "Abu Bakr al-Shatri":
+        return new Shatri();
+      case "Sa`ud ash-Shuraym":
+        return new Shuraym();
+      case "Abdur-Rahman as-Sudais":
+        return new Sudais();
+      case "Khalifah Taniji":
+        return new Taniji();
+      default:
+        return null;
+    }
+  }
+
+  public static Map<String, Integer> getRecitersAndAssociatedNumber() {
+    return Map.of(
+        "AbdulBaset AbdulSamad", 1,
+        "Mishari Rashid al-`Afasy", 2,
+        "Mahmoud Khalil Al-Husary", 3,
+        "Mohamed Siddiq al-Minshawi", 4,
+        "Hani ar-Rifai", 5,
+        "Abu Bakr al-Shatri", 6,
+        "Sa`ud ash-Shuraym", 7,
+        "Abdur-Rahman as-Sudais", 8,
+        "Khalifah Taniji", 9);
+  }
+
+  public static String getReciterName(int number) {
+    return getRecitersAndAssociatedNumber().entrySet().stream()
+        .filter(entry -> entry.getValue() == number)
+        .map(Map.Entry::getKey)
+        .findFirst()
+        .orElseThrow(() -> new IllegalArgumentException("Unknown reciter number: " + number));
+  }
 }

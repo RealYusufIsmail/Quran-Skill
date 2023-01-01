@@ -36,7 +36,7 @@ public class WelcomeRequestHandler implements RequestHandler {
     return handlerInput
         .getResponseBuilder()
         .withSpeech(
-            "Welcome to the weather skill, you can ask me for the weather in a city located in the United Kingdom")
+            "Welcome to the Quran skill, you can ask me to play a surah from a reciter of your choice")
         .build();
   }
 }

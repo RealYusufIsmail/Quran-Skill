@@ -19,10 +19,14 @@
 package io.github.realyusufismail.handlers.quran;
 
 import static com.amazon.ask.request.Predicates.intentName;
+import static io.github.realyusufismail.utils.Utils.getIntent;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
+import com.amazon.ask.model.interfaces.audioplayer.PlayBehavior;
+import io.github.realyusufismail.reciters.Reciter;
+import io.github.realyusufismail.utils.QuranUtils;
 import java.util.Optional;
 
 public class QuranHandler implements RequestHandler {
@@ -33,6 +37,34 @@ public class QuranHandler implements RequestHandler {
 
   @Override
   public Optional<Response> handle(HandlerInput handlerInput) {
-    return Optional.empty();
+    final var requestedSurahNumber =
+        getIntent(handlerInput).getSlots().get("surahNumber").getValue();
+
+    if (requestedSurahNumber == null) {
+      return handlerInput
+          .getResponseBuilder()
+          .withSpeech(
+              "The surah number you requested is invalid, choose a number between 1 and 114")
+          .withShouldEndSession(false)
+          .build();
+    }
+
+    final var surahNumber = Integer.parseInt(requestedSurahNumber);
+    final var surahName = QuranUtils.surahNamesAndNumbers.get(surahNumber);
+    var reciter =
+        (Reciter) handlerInput.getAttributesManager().getSessionAttributes().get("reciter");
+
+    if (reciter == null) {
+      reciter = Reciter.DEFAULT_RECITER;
+    }
+
+    final var surahUrl = reciter.getSurahUrl(surahNumber);
+
+    return handlerInput
+        .getResponseBuilder()
+        .withSpeech("Playing surah " + surahName + " from " + reciter.getName())
+        .withShouldEndSession(false)
+        .addAudioPlayerPlayDirective(PlayBehavior.REPLACE_ALL, 0L, "", null, surahUrl)
+        .build();
   }
 }

@@ -18,18 +18,18 @@
  */ 
 package io.github.realyusufismail.handlers.basic;
 
-import static com.amazon.ask.request.Predicates.requestType;
+import static com.amazon.ask.request.Predicates.intentName;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
-import com.amazon.ask.model.LaunchRequest;
 import com.amazon.ask.model.Response;
 import java.util.Optional;
 
-public class LaunchRequestHandler implements RequestHandler {
+public class HelpRequestHandler implements RequestHandler {
+
   @Override
   public boolean canHandle(HandlerInput handlerInput) {
-    return handlerInput.matches(requestType(LaunchRequest.class));
+    return handlerInput.matches(intentName("AMAZON.HelpIntent"));
   }
 
   @Override
@@ -37,7 +37,7 @@ public class LaunchRequestHandler implements RequestHandler {
     return handlerInput
         .getResponseBuilder()
         .withSpeech(
-            "Welcome to the Quran Skill, you can ask me to play a surah from a reciter of your choice")
+            "To set a reciter, say set reciter to <reciter number>, to play a surah, say play surah <surah number>")
         .build();
   }
 }

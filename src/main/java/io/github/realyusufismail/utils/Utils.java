@@ -18,20 +18,14 @@
  */ 
 package io.github.realyusufismail.utils;
 
-public enum Strings {
-  WELCOME(
-      "Welcome to the weather skill, you can ask me for the weather in a city located in the United Kingdom"),
-  HELP("You can ask me for the weather in a city located in the United Kingdom"),
-  ERROR("Sorry, I couldn't understand what you said. Please try again."),
-  STOP("Goodbye!");
+import com.amazon.ask.dispatcher.request.handler.HandlerInput;
+import com.amazon.ask.model.Intent;
+import com.amazon.ask.model.IntentRequest;
 
-  private final String value;
-
-  Strings(String value) {
-    this.value = value;
-  }
-
-  public String getValue() {
-    return value;
+public class Utils {
+  public static Intent getIntent(HandlerInput handlerInput) {
+    var request = handlerInput.getRequestEnvelope().getRequest();
+    var intentRequest = (IntentRequest) request;
+    return intentRequest.getIntent();
   }
 }

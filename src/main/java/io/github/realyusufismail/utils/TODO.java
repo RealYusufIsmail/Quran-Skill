@@ -16,22 +16,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */ 
-package io.github.realyusufismail.reciters;
+package io.github.realyusufismail.utils;
 
-import static io.github.realyusufismail.utils.TODO.TODO;
-
-public interface Reciter {
-  Reciter DEFAULT_RECITER = new AbdulBaset();
-
-  String getName();
-
-  String getAudioUrl();
-
-  int getReciterNumber();
-
-  String getSurahUrl(int surahNumber);
-
-  default String getChapterUrl(Integer chapterNumber) {
-    return (String) TODO("Not implemented yet");
+public class TODO {
+  public static Object TODO(String message) {
+    return new UnsupportedOperationException(message);
   }
 }

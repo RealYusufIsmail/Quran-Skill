@@ -16,28 +16,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */ 
-package io.github.realyusufismail.handlers.basic;
+package io.github.realyusufismail.handlers.quran;
 
-import static com.amazon.ask.request.Predicates.requestType;
+import static com.amazon.ask.request.Predicates.intentName;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
-import com.amazon.ask.model.LaunchRequest;
 import com.amazon.ask.model.Response;
+import io.github.realyusufismail.utils.QuranUtils;
 import java.util.Optional;
 
-public class LaunchRequestHandler implements RequestHandler {
+public class ListRecitersHandler implements RequestHandler {
   @Override
   public boolean canHandle(HandlerInput handlerInput) {
-    return handlerInput.matches(requestType(LaunchRequest.class));
+    return handlerInput.matches(intentName("ListRecitersIntent"));
   }
 
   @Override
   public Optional<Response> handle(HandlerInput handlerInput) {
+    var reciters = QuranUtils.getRecitersAndAssociatedNumber();
+    var recitersNames = reciters.keySet();
+    var recitersNumbers = reciters.values();
+    StringBuilder recitersList = new StringBuilder();
+    for (var i = 0; i < recitersNames.size(); i++) {
+      recitersList
+          .append(recitersNames.toArray()[i])
+          .append(" with number ")
+          .append(recitersNumbers.toArray()[i])
+          .append(", ");
+    }
     return handlerInput
         .getResponseBuilder()
-        .withSpeech(
-            "Welcome to the Quran Skill, you can ask me to play a surah from a reciter of your choice")
+        .withSpeech("The list of reciters is " + recitersList)
         .build();
   }
 }

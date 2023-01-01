@@ -20,9 +20,12 @@ package io.github.realyusufismail;
 
 import com.amazon.ask.SkillStreamHandler;
 import com.amazon.ask.Skills;
+import io.github.realyusufismail.handlers.basic.HelpRequestHandler;
 import io.github.realyusufismail.handlers.basic.LaunchRequestHandler;
 import io.github.realyusufismail.handlers.basic.WelcomeRequestHandler;
+import io.github.realyusufismail.handlers.quran.ListRecitersHandler;
 import io.github.realyusufismail.handlers.quran.QuranHandler;
+import io.github.realyusufismail.handlers.quran.SetReciterHandler;
 
 @SuppressWarnings("unused")
 public class QuranSkillHandler extends SkillStreamHandler {
@@ -31,7 +34,12 @@ public class QuranSkillHandler extends SkillStreamHandler {
     super(
         Skills.standard()
             .addRequestHandlers(
-                new WelcomeRequestHandler(), new LaunchRequestHandler(), new QuranHandler())
+                new WelcomeRequestHandler(),
+                new LaunchRequestHandler(),
+                new QuranHandler(),
+                new ListRecitersHandler(),
+                new SetReciterHandler(),
+                new HelpRequestHandler())
             .build());
   }
 }

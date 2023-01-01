@@ -16,28 +16,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */ 
-package io.github.realyusufismail.handlers.basic;
+package io.github.realyusufismail.handlers.quran;
 
-import static com.amazon.ask.request.Predicates.requestType;
+import static com.amazon.ask.request.Predicates.intentName;
+import static io.github.realyusufismail.utils.Utils.getIntent;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
-import com.amazon.ask.model.LaunchRequest;
 import com.amazon.ask.model.Response;
+import io.github.realyusufismail.utils.QuranUtils;
 import java.util.Optional;
 
-public class LaunchRequestHandler implements RequestHandler {
+public class SetReciterHandler implements RequestHandler {
+
   @Override
   public boolean canHandle(HandlerInput handlerInput) {
-    return handlerInput.matches(requestType(LaunchRequest.class));
+    return handlerInput.matches(intentName("SetReciterIntent"));
   }
 
   @Override
   public Optional<Response> handle(HandlerInput handlerInput) {
+    var reciterNumber = getIntent(handlerInput).getSlots().get("reciterNumber").getValue();
+    var reciterName = QuranUtils.getReciterName(Integer.parseInt(reciterNumber));
+    var reciter = QuranUtils.getReciter(reciterName);
+    if (reciter == null) {
+      return handlerInput
+          .getResponseBuilder()
+          .withSpeech(
+              "Sorry, I couldn't find that reciter, to see the list of reciters, say list reciters")
+          .build();
+    }
+
+    var sessionAttributes = handlerInput.getAttributesManager().getSessionAttributes();
+    sessionAttributes.put("reciter", reciter);
     return handlerInput
         .getResponseBuilder()
-        .withSpeech(
-            "Welcome to the Quran Skill, you can ask me to play a surah from a reciter of your choice")
+        .withSpeech("Reciter set to " + reciter.getName())
         .build();
   }
 }

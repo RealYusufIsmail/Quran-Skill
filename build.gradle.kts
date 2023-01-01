@@ -1,8 +1,11 @@
 plugins {
     id("java")
+    id("com.diffplug.spotless") version "6.12.0"
+    jacoco // code coverage reports
 }
 
 group = "io.github.realyusufismail"
+
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -32,8 +35,49 @@ tasks.withType<Jar> {
     from(configurations.compileClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
 }
 
-//set java version to 11
+// set java version to 11
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
+}
+
+tasks.test {
+    useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+}
+
+spotless {
+    java {
+        // Excludes build folder since it contains generated java classes.
+        targetExclude("build/**")
+        googleJavaFormat()
+
+        licenseHeader(
+            """/*
+ * Copyright 2022 YDWK inc.
+ *
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ *
+ * you may not use this file except in compliance with the License.
+ *
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */ """)
+    }
+
+    kotlinGradle {
+        target("**/*.gradle.kts")
+        ktfmt("0.42").dropboxStyle()
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
 }

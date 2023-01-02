@@ -1,1 +1,1 @@
-rootProject.name = "Alexa-Weather-Skill"
+rootProject.name = "Quran-Skill"

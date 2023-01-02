@@ -64,7 +64,7 @@ public class QuranHandler implements RequestHandler {
         .getResponseBuilder()
         .withSpeech("Playing surah " + surahName + " from " + reciter.getName())
         .withShouldEndSession(false)
-        .addAudioPlayerPlayDirective(PlayBehavior.REPLACE_ALL, 0L, "", null, surahUrl)
+        .addAudioPlayerPlayDirective(PlayBehavior.REPLACE_ALL, 0L, "", "", surahUrl)
         .build();
   }
 }

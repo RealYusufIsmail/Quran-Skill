@@ -143,6 +143,15 @@ public class QuranUtils {
         }
       };
 
+  public static String getSuraName(int suraNumber) {
+    for (Map.Entry<String, Integer> entry : surahNamesAndNumbers.entrySet()) {
+      if (entry.getValue().equals(suraNumber)) {
+        return entry.getKey();
+      }
+    }
+    return null;
+  }
+
   public static Reciter getReciter(String reciterName) {
     switch (reciterName) {
       case "AbdulBaset AbdulSamad":

@@ -16,10 +16,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */ 
-package io.github.realyusufismail.handlers.quran;
+package io.github.realyusufismail.handlers.audio;
 
 import static com.amazon.ask.request.Predicates.intentName;
-import static io.github.realyusufismail.utils.Utils.getIntent;
+import static io.github.realyusufismail.utils.Utils.*;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
@@ -29,16 +29,20 @@ import io.github.realyusufismail.reciters.Reciter;
 import io.github.realyusufismail.utils.QuranUtils;
 import java.util.Optional;
 
-public class QuranHandler implements RequestHandler {
+public class ResumeAndPlayQuranIntentHandler implements RequestHandler {
   @Override
   public boolean canHandle(HandlerInput handlerInput) {
-    return handlerInput.matches(intentName("QuranIntent"));
+    if (handlerInput.matches(intentName("AMAZON.ResumeIntent"))) {
+      return true;
+    } else return handlerInput.matches(intentName("PlayQuranIntent"));
   }
 
   @Override
   public Optional<Response> handle(HandlerInput handlerInput) {
+    final var surahNumberExists = checkSlot(getIntent(handlerInput), "surahNumber");
+
     final var requestedSurahNumber =
-        getIntent(handlerInput).getSlots().get("surahNumber").getValue();
+        surahNumberExists ? getIntent(handlerInput).getSlots().get("surahNumber").getValue() : "1";
 
     final var surahNumber =
         QuranUtils.checkIfSurahNumberIsIntegerOrStringToInteger(requestedSurahNumber);
@@ -61,11 +65,19 @@ public class QuranHandler implements RequestHandler {
 
     final var surahUrl = reciter.getSurahUrl(surahNumber);
 
+    var audioPlayer = getAudioPlayerState(handlerInput);
+    var token = audioPlayer.getToken();
+    var offsetInMilliseconds = audioPlayer.getOffsetInMilliseconds();
+
+    // set the current surah number to the session attributes
+    handlerInput.getAttributesManager().getSessionAttributes().put("surahNumber", surahNumber);
+
     return handlerInput
         .getResponseBuilder()
         .withSpeech("Playing surah " + surahName + " from " + reciter.getName())
         .withShouldEndSession(false)
-        .addAudioPlayerPlayDirective(PlayBehavior.REPLACE_ALL, 0L, "", "", surahUrl)
+        .addAudioPlayerPlayDirective(
+            PlayBehavior.REPLACE_ALL, offsetInMilliseconds, "", token, surahUrl)
         .build();
   }
 }

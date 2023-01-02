@@ -21,11 +21,21 @@ package io.github.realyusufismail.utils;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.model.Intent;
 import com.amazon.ask.model.IntentRequest;
+import com.amazon.ask.model.interfaces.audioplayer.AudioPlayerState;
 
 public class Utils {
   public static Intent getIntent(HandlerInput handlerInput) {
     var request = handlerInput.getRequestEnvelope().getRequest();
     var intentRequest = (IntentRequest) request;
     return intentRequest.getIntent();
+  }
+
+  public static boolean checkSlot(Intent intent, String slotName) {
+    return intent.getSlots().containsKey(slotName)
+        || intent.getSlots().get(slotName).getValue() != null;
+  }
+
+  public static AudioPlayerState getAudioPlayerState(HandlerInput handlerInput) {
+    return handlerInput.getRequestEnvelope().getContext().getAudioPlayer();
   }
 }

@@ -20,6 +20,7 @@ package io.github.realyusufismail;
 
 import com.amazon.ask.SkillStreamHandler;
 import com.amazon.ask.Skills;
+import io.github.realyusufismail.handlers.basic.FallbackRequestHandler;
 import io.github.realyusufismail.handlers.basic.HelpRequestHandler;
 import io.github.realyusufismail.handlers.basic.LaunchRequestHandler;
 import io.github.realyusufismail.handlers.basic.WelcomeRequestHandler;
@@ -39,7 +40,8 @@ public class QuranSkillHandler extends SkillStreamHandler {
                 new QuranHandler(),
                 new ListRecitersHandler(),
                 new SetReciterHandler(),
-                new HelpRequestHandler())
+                new HelpRequestHandler(),
+                new FallbackRequestHandler())
             .build());
   }
 }

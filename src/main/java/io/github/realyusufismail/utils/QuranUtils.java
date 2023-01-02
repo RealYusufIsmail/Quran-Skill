@@ -197,4 +197,28 @@ public class QuranUtils {
         .findFirst()
         .orElseThrow(() -> new IllegalArgumentException("Unknown reciter number: " + number));
   }
+
+  public static Integer checkIfSurahNumberIsIntegerOrStringToInteger(String requestedSurahNumber) {
+    int surahNumber;
+    try {
+      surahNumber = Integer.parseInt(requestedSurahNumber);
+    } catch (NumberFormatException e) {
+      // check if the string name is a number and convert it to an integer
+      if (isNumeric(requestedSurahNumber)) {
+        surahNumber = Integer.parseInt(requestedSurahNumber);
+      } else {
+        return null;
+      }
+    }
+
+    if (surahNumber < 1 || surahNumber > 114) {
+      return null;
+    }
+
+    return surahNumber;
+  }
+
+  static boolean isNumeric(String c) {
+    return c.matches("-?\\d+(\\.\\d+)?");
+  }
 }

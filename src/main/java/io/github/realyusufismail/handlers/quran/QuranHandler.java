@@ -40,7 +40,17 @@ public class QuranHandler implements RequestHandler {
     final var requestedSurahNumber =
         getIntent(handlerInput).getSlots().get("surahNumber").getValue();
 
-    final var surahNumber = Integer.parseInt(requestedSurahNumber);
+    final var surahNumber =
+        QuranUtils.checkIfSurahNumberIsIntegerOrStringToInteger(requestedSurahNumber);
+
+    if (surahNumber == null) {
+      return handlerInput
+          .getResponseBuilder()
+          .withSpeech("Sorry, You have said an invalid surah number. Please try again.")
+          .withShouldEndSession(false)
+          .build();
+    }
+
     final var surahName = QuranUtils.getSuraName(surahNumber);
     var reciter =
         (Reciter) handlerInput.getAttributesManager().getSessionAttributes().get("reciter");

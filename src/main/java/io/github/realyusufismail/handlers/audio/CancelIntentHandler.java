@@ -18,25 +18,25 @@
  */ 
 package io.github.realyusufismail.handlers.audio;
 
+import static com.amazon.ask.request.Predicates.intentName;
+
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Response;
-
 import java.util.Optional;
-
-import static com.amazon.ask.request.Predicates.intentName;
 
 public class CancelIntentHandler implements RequestHandler {
   @Override
   public boolean canHandle(com.amazon.ask.dispatcher.request.handler.HandlerInput handlerInput) {
-     if (handlerInput.matches(intentName("AMAZON.CancelIntent"))) {
-       return true;
-     } else return handlerInput.matches(intentName("AMAZON.StopIntent"));
+    if (handlerInput.matches(intentName("AMAZON.CancelIntent"))) {
+      return true;
+    } else return handlerInput.matches(intentName("AMAZON.StopIntent"));
   }
 
   @Override
   public Optional<Response> handle(HandlerInput handlerInput) {
-    return handlerInput.getResponseBuilder()
+    return handlerInput
+        .getResponseBuilder()
         .withSpeech("Ok, see you next time!")
         .withShouldEndSession(true)
         .build();

@@ -20,8 +20,7 @@ package io.github.realyusufismail;
 
 import com.amazon.ask.SkillStreamHandler;
 import com.amazon.ask.Skills;
-import io.github.realyusufismail.handlers.audio.CancelIntentHandler;
-import io.github.realyusufismail.handlers.audio.ResumeAndPlayQuranIntentHandler;
+import io.github.realyusufismail.handlers.audio.*;
 import io.github.realyusufismail.handlers.basic.FallbackRequestHandler;
 import io.github.realyusufismail.handlers.basic.HelpRequestHandler;
 import io.github.realyusufismail.handlers.basic.LaunchRequestHandler;
@@ -47,8 +46,16 @@ public class QuranSkillHandler extends SkillStreamHandler {
 
                 // audio player handlers
                 new ResumeAndPlayQuranIntentHandler(),
-                new CancelIntentHandler()
-                    )
+                new CancelIntentHandler(),
+                new RepeatIntentHandler(),
+                new NextIntentHandler(),
+                new LoopOnIntentHandler(),
+                new LoopOffIntentHandler(),
+                new ShuffleOnIntentHandler(),
+                new ShuffleOffIntentHandler(),
+                new StartOverIntentHandler(),
+                new PreviousIntentHandler(),
+                new PauseIntentHandler())
             .build());
   }
 }

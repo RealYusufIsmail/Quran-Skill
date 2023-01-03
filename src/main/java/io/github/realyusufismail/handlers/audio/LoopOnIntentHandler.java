@@ -18,4 +18,24 @@
  */ 
 package io.github.realyusufismail.handlers.audio;
 
-public class LoopOnIntentHandler {}
+import static com.amazon.ask.request.Predicates.intentName;
+
+import com.amazon.ask.dispatcher.request.handler.HandlerInput;
+import com.amazon.ask.dispatcher.request.handler.RequestHandler;
+import com.amazon.ask.model.Response;
+import java.util.Optional;
+
+public class LoopOnIntentHandler implements RequestHandler {
+  @Override
+  public boolean canHandle(HandlerInput handlerInput) {
+    return handlerInput.matches(intentName("AMAZON.LoopOnIntent"));
+  }
+
+  @Override
+  public Optional<Response> handle(HandlerInput handlerInput) {
+    return handlerInput
+        .getResponseBuilder()
+        .withSpeech("This skill doesn't support loop on")
+        .build();
+  }
+}

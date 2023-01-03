@@ -18,4 +18,24 @@
  */ 
 package io.github.realyusufismail.handlers.audio;
 
-public class RepeatIntentHandler {}
+import static com.amazon.ask.request.Predicates.intentName;
+
+import com.amazon.ask.dispatcher.request.handler.HandlerInput;
+import com.amazon.ask.dispatcher.request.handler.RequestHandler;
+import com.amazon.ask.model.Response;
+import java.util.Optional;
+
+public class RepeatIntentHandler implements RequestHandler {
+  @Override
+  public boolean canHandle(HandlerInput handlerInput) {
+    return handlerInput.matches(intentName("AMAZON.RepeatIntent"));
+  }
+
+  @Override
+  public Optional<Response> handle(HandlerInput handlerInput) {
+    return handlerInput
+        .getResponseBuilder()
+        .withSpeech("This skill doesn't support repeat")
+        .build();
+  }
+}

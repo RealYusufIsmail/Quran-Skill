@@ -36,9 +36,7 @@ public class NextIntentHandler implements RequestHandler {
 
   @Override
   public Optional<Response> handle(HandlerInput handlerInput) {
-    var currenSurahNumber =
-        handlerInput.getAttributesManager().getSessionAttributes().get("surahNumber");
-    if (currenSurahNumber == null) {
+    if (!handlerInput.getAttributesManager().getSessionAttributes().containsKey("surahNumber")) {
       handlerInput
           .getResponseBuilder()
           .withSpeech(
@@ -46,6 +44,8 @@ public class NextIntentHandler implements RequestHandler {
           .withShouldEndSession(false);
     }
 
+    var currenSurahNumber =
+        handlerInput.getAttributesManager().getSessionAttributes().get("surahNumber").toString();
     var newSurahNumber = Integer.parseInt((String) currenSurahNumber) + 1;
 
     if (newSurahNumber > 114) {

@@ -39,10 +39,16 @@ public class ResumeAndPlayQuranIntentHandler implements RequestHandler {
 
   @Override
   public Optional<Response> handle(HandlerInput handlerInput) {
-    final var surahNumberExists = checkSlot(getIntent(handlerInput), "surahNumber");
 
-    final var requestedSurahNumber =
-        surahNumberExists ? getIntent(handlerInput).getSlots().get("surahNumber").getValue() : "1";
+    if (!getIntent(handlerInput).getSlots().containsKey("surahNumber")) {
+      return handlerInput
+          .getResponseBuilder()
+          .withSpeech("Please provide a surah number")
+          .withShouldEndSession(false)
+          .build();
+    }
+
+    var requestedSurahNumber = getIntent(handlerInput).getSlots().get("surahNumber").getValue();
 
     final var surahNumber =
         QuranUtils.checkIfSurahNumberIsIntegerOrStringToInteger(requestedSurahNumber);

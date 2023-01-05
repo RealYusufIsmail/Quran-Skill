@@ -36,16 +36,18 @@ public class SetReciterHandler implements RequestHandler {
 
   @Override
   public Optional<Response> handle(HandlerInput handlerInput) {
-    var reciterNumber = getIntent(handlerInput).getSlots().get("reciterNumber").getValue();
-
-    if (reciterNumber == null) {
-      return handlerInput.getResponseBuilder()
+    if (!getIntent(handlerInput).getSlots().containsKey("reciterNumber")) {
+      return handlerInput
+          .getResponseBuilder()
           .withSpeech("You have not provided a reciter number")
           .withShouldEndSession(false)
           .build();
     }
 
-    var reciterName = QuranUtils.getReciterName(Integer.parseInt(reciterNumber));
+    var reciterNumber =
+        Integer.parseInt(getIntent(handlerInput).getSlots().get("reciterNumber").getValue());
+
+    var reciterName = QuranUtils.getReciterName(reciterNumber);
     var reciter = QuranUtils.getReciter(reciterName);
     if (reciter == null) {
       return handlerInput

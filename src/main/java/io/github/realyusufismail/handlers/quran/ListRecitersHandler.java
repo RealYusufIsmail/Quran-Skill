@@ -36,7 +36,6 @@ public class ListRecitersHandler implements RequestHandler {
   public Optional<Response> handle(HandlerInput handlerInput) {
     var reciters = QuranUtils.getRecitersAndAssociatedNumber();
     var recitersNames = reciters.keySet();
-    var recitersNumbers = reciters.values();
     StringBuilder recitersList = new StringBuilder();
     // needs to be in numerical order
     for (int i = 1; i <= recitersNames.size(); i++) {

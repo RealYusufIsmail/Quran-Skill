@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.amazon.alexa:ask-sdk:2.46.0")
+    implementation("com.amazon.alexa:ask-sdk:2.65.0")
     // logger
     implementation("ch.qos.logback:logback-classic:1.4.5")
     implementation("ch.qos.logback:logback-core:1.4.5")

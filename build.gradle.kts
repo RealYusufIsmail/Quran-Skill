@@ -21,7 +21,7 @@ dependencies {
     // rest client
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     // json
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.1")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.1")
     // config
     implementation("io.github.realyusufismail:jconfig:1.0.9-SNAPSHOT")
     // test

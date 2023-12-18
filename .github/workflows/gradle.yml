@@ -26,7 +26,7 @@ jobs:
         uses: gradle/gradle-build-action@d3a78eb55fffee1a47f015407e9358a147b48ddc
         with:
           arguments: build
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: Quran-Skill
           path: build/libs

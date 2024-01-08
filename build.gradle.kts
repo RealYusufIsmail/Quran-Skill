@@ -17,7 +17,7 @@ dependencies {
     implementation("com.amazon.alexa:ask-sdk:2.69.0")
     // logger
     implementation("ch.qos.logback:logback-classic:1.4.5")
-    implementation("ch.qos.logback:logback-core:1.4.5")
+    implementation("ch.qos.logback:logback-core:1.4.14")
     // rest client
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     // json

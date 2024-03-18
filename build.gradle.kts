@@ -26,7 +26,7 @@ dependencies {
     implementation("io.github.realyusufismail:jconfig:1.0.9-SNAPSHOT")
     // test
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
 }
 
 configurations { all { exclude(group = "org.slf4j", module = "slf4j-log4j12") } }
